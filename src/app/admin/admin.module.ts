@@ -15,6 +15,7 @@ import { AdminComponent } from './admin.component';
   exports: [AdminComponent],
   imports: [
     CommonModule,
+    RouterModule,
     AdminRoutingModule,
     CoreModule,
     PaymentDriverModule,

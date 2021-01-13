@@ -1,14 +1,15 @@
-import { TradeDriverComponent } from './trade-driver/trade-driver.component';
-import { PaymentDriverComponent } from './payment-driver/payment-driver.component';
-import { FinanceDriverComponent } from './finance-driver/finance-driver.component';
+import { AdminComponent } from './admin.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-    { path: '', component: FinanceDriverComponent },
-    { path: 'financedriver', component: FinanceDriverComponent },
-    { path: 'paymentdriver', component: PaymentDriverComponent },
-    { path: 'tradedriver', component: TradeDriverComponent },
+    {
+        path: '', component: AdminComponent, children: [
+            { path: 'paymentdriver', loadChildren: () => import('../admin/payment-driver/payment-driver.module').then(mod => mod.PaymentDriverModule) },
+            { path: 'financedriver', loadChildren: () => import('../admin/finance-driver/finance-driver.module').then(mod => mod.FinanceDriverModule) },
+            { path: 'tradedriver', loadChildren: () => import('../admin/trade-driver/trade-driver.module').then(mod => mod.TradeDriverModule) }
+        ]
+    },
 ];
 
 @NgModule({
@@ -20,4 +21,5 @@ const routes: Routes = [
         RouterModule
     ]
 })
+
 export class AdminRoutingModule { }
